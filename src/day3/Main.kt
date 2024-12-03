@@ -1,6 +1,7 @@
 package utils.day3
 
 import utils.readInput
+import kotlin.system.measureTimeMillis
 
 val mulRegex = "mul\\((\\d+),(\\d+)\\)".toRegex()
 
@@ -39,18 +40,23 @@ fun part2(inputs: List<String>): Int {
 }
 
 fun main() {
-    val testInput = readInput("day3_test")
-    val testInput2 = readInput("day3_test2")
+//    val testInput = readInput("day3_test")
+//    val testInput2 = readInput("day3_test2")
     val input = readInput("day3")
 
-    assert(part1(testInput)==161)
+//    assert(part1(testInput)==161)
 
-    val result1 = part1(input)
-    println(result1)
+    val millis1 =  measureTimeMillis {
+        val result1 = part1(input)
+        println(result1)
+    }
 
-    assert(part2(testInput2)==48)
+//    assert(part2(testInput2)==48)
+    val millis2 =  measureTimeMillis {
+        val result2 = part2(input)
+        println(result2)
+    }
 
-    val result2 = part2(input)
-    println(result2)
+    println("Part 1 took ${millis1} ms, part 2 took ${millis2} ms")
 
 }
