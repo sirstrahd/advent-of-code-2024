@@ -13,8 +13,7 @@ fun countXmas(map: Array<CharArray>, i: Int, j: Int): Int {
         while(distance < XMAS.length && (i + vector.first*distance in map.indices)
             && (j + vector.second*distance in map[0].indices)) {
             val currentLetter = map[i + vector.first*distance][j + vector.second*distance]
-            val expectedLetter = XMAS[distance]
-            if (currentLetter == expectedLetter) {
+            if (currentLetter == XMAS[distance]) {
                 distance++
             } else {
                 break
@@ -39,20 +38,21 @@ private fun topLeftToBotRight(map: Array<CharArray>, i: Int, j: Int) =
 
 private fun botLeftToTopRight(map: Array<CharArray>, i: Int, j: Int) =
     (map[i - 1][j + 1] == 'M' && map[i + 1][j - 1] == 'S') || (map[i - 1][j + 1] == 'S' && map[i + 1][j - 1] == 'M')
-fun part1(map: Array<CharArray>): Int {
+
+fun execute(map: Array<CharArray>, f: (map: Array<CharArray>, i: Int, j: Int) -> Int): Int {
     return map.foldIndexed(0) { i, acc, row ->
         acc + row.foldIndexed(0) { j, accRow, elem ->
-            accRow + countXmas(map, i, j)
+            accRow + f(map, i, j)
         }
     }
 }
 
+fun part1(map: Array<CharArray>): Int {
+    return execute(map, ::countXmas)
+}
+
 fun part2(map: Array<CharArray>): Int {
-    return map.foldIndexed(0) { i, acc, row ->
-        acc + row.foldIndexed(0) { j, accRow, elem ->
-            accRow + countCrossMas(map, i, j)
-        }
-    }
+    return execute(map, ::countCrossMas)
 }
 
 fun main() {
